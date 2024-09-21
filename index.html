@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- fading animation -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+
+
+
+    <style>
+        @keyframes scanEffect {
+            0% {
+                top: 0;
+            }
+
+            50% {
+                top: 100%;
+            }
+
+            100% {
+                top: 0;
+            }
+        }
+
+        .scan_bar {
+            animation: scanEffect 3s infinite alternate linear;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #progressContainer {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #progressBar {
+            transition: width 0.2s;
+            /* Hiệu ứng mượt khi thanh tiến trình thay đổi */
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- loading animation before full page loaded -->
+    <style>
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #292929;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+            /* Add a transition effect */
+        }
+
+        #loadingSpinner {
+            width: 50px;
+            height: 50px;
+            border: 6px solid #696969;
+            border-top: 6px solid gold;
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+    <style>
+        /* Keyframes for pop-out animation */
+        @keyframes popOut {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            80% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* Style for .item class with animation, initially hidden */
+        .item {
+            opacity: 0;
+            /* Hidden initially */
+        }
+
+        /* Additional styles for the container */
+        .container {
+            width: 100%;
+            padding: 50px 0;
+        }
+
+        .grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* Adjustments for the inner elements */
+        .inner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 30px;
+        }
+
+        /* Image styling */
+        .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Image container styling */
+        .image-container {
+            width: 80%;
+            border: 5px solid gold;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <style>
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                backdrop-filter: blur(100px);
+            }
+
+            100% {
+                opacity: 0;
+                backdrop-filter: blur(0px);
+            }
+        }
+
+        .fadeOut {
+            animation: fadeOut 10s forwards;
+            /* Thời gian hiệu ứng là 2 giây */
+        }
+
+
+
+
+
+
+        #progressContainer2 {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #progressBar2 {
+            transition: width 0.2s;
+            /* Hiệu ứng mượt khi thanh tiến trình thay đổi */
+        }
+    </style>
+</head>
+
+<body style="background-color: rgb(37, 37, 37); margin: 0; overflow-x: hidden;">
+
+
+    <!-- loading animation -->
+    <div id="fake_loading">
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!-- zone for login -->
+    <div id="container">
+
+        <div
+            style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100vh; position: fixed; z-index: 2;">
+            <div style="width: fit-content;">
+
+                <center>
+                    <!-- logo -->
+                    <img style="width: 50%;"
+                        src="[removal.ai]_35ec2f7e-c448-4290-a5d2-a5c024cf7788-logo-hanh-khung1.png" alt="">
+
+                    <!-- login password -->
+                    <div style="padding-top: 50px;">
+                        <input id="password"
+                            style="width: 80%; font-size: 30px; padding: 5px; border: 5px solid gold; border-radius: 20px; background-color: rgb(37, 37, 37); color: gold;"
+                            type="password">
+                    </div>
+
+                    <!-- login button -->
+                    <div style="padding-top: 50px;">
+                        <button id="checkPasswordButton"
+                            style="background-image: url('photo-1545873681-d8affd67677b.jpg'); background-size: cover; background-repeat: no-repeat;  color: rgb(0, 0, 0); padding: 10px 20px; border: none; border-radius: 5px; font-size: 30px;">Login</button>
+                    </div>
+                </center>
+            </div>
+
+        </div>
+
+
+        <!-- golden bg -->
+        <div style="width: 100%; height: 100vh; position: fixed; z-index: 1;">
+            <img style="width: 100%; height: 100%;" src="golden border_3263621.png" alt="">
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- face scaning zone -->
+    <div id="container2" style="display: none;">
+        <div
+            style="position: absolute; top: 0; height: 80px; margin-top: 10px; display: flex; justify-content: center; width: 100%;">
+            <img style="height: 100%;" src="[removal.ai]_35ec2f7e-c448-4290-a5d2-a5c024cf7788-logo-hanh-khung1.png"
+                alt="">
+        </div>
+
+
+        <div id="scan_zone"
+            style="background-color: white; width: 100%; height: 70vh; margin-top: 100px; position: relative; overflow: hidden;">
+
+
+            <div id="scan_bar"
+                style="position: absolute; width: 100%; height: 30px; background-color: rgba(0, 255, 0, 0.5); top: 0; display: none; z-index: 3;">
+            </div>
+
+
+
+            <div
+                style="height: 100%; display: flex; align-items: end; justify-content: center; z-index: 2; position: absolute; width: 100%;">
+                <img style="height: 80%; width: auto;"
+                    src="face_facial_scan_authentication_biometric_identification_recognition-1024 (1).png" alt="">
+            </div>
+
+
+            <div id="camera" style="z-index: 1; height: 100%;">
+                <video id="video" style="width: 100%; height: 100%; object-fit: cover;" autoplay></video>
+
+                <script>
+                    function startCamera() {
+                        const video = document.getElementById('video');
+
+                        // Kiểm tra nếu trình duyệt hỗ trợ getUserMedia
+                        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                            navigator.mediaDevices.getUserMedia({ video: true })
+                                .then(function (stream) {
+                                    // Hiển thị video trực tiếp từ camera
+                                    video.srcObject = stream;
+                                })
+                                .catch(function (error) {
+                                    console.log("Error accessing camera: ", error);
+                                    alert("Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập.");
+                                });
+                        } else {
+                            alert("Trình duyệt của bạn không hỗ trợ camera.");
+                        }
+                    }
+
+                    // Gọi hàm startCamera khi trang đã tải
+                    window.onload = function () {
+                        startCamera();
+                    };
+                </script>
+            </div>
+        </div>
+
+
+        <div style="display: flex; justify-content: center; padding-top: 100px;">
+
+            <div id="progressContainer"
+                style="width: 90%; background-color: #f3f3f3; border-radius: 10px; overflow: hidden; height: 30px; margin-top: 20px; display: none;">
+                <div id="progressBar"
+                    style="width: 0%; height: 100%; background-color: #4caf50; text-align: center; line-height: 30px; color: white; font-weight: bold;">
+                    0%
+                </div>
+            </div>
+
+            <button id="scan_button" onclick="start_scan()"
+                style="background-image: url('photo-1545873681-d8affd67677b.jpg'); background-size: cover; background-repeat: no-repeat;  color: rgb(0, 0, 0); padding: 10px 20px; border: none; border-radius: 5px; font-size: 50px;">
+                start scan
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- avatar identify zone -->
+    <div id="identify_avatar" style="display: none;">
+        <!-- avatar frame -->
+        <div style="width: 100%; display: flex; justify-content: center; padding-top: 50px;">
+            <div id="avatar_frame"
+                style="width: 80%; border: 5px solid gold; border-radius: 25px; overflow: hidden; position: relative;">
+                <div id="blurEffect"
+                    style="width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); position: absolute; top: 0; backdrop-filter: blur(10px);">
+                </div>
+                <img id="original_img_shown" style="width: 100%; height: 100%; object-fit: cover;" src="" alt="">
+            </div>
+        </div>
+
+
+        <div style="display: flex; justify-content: center;">
+            <div id="ai_interact_zone" style="width: 80%;">
+                <div id="progressContainer2"
+                    style="background-color: #f3f3f3; border-radius: 10px; overflow: hidden; height: 30px; margin-top: 20px;">
+                    <div id="progressBar2"
+                        style="width: 0%; height: 100%; background-color: #4caf50; text-align: center; line-height: 30px; color: white; font-weight: bold;">
+                        0%
+                    </div>
+                </div>
+
+
+
+                <div style="padding-bottom: 50px;">
+                    <div id="script_run"
+                        style="width: 100%; height: 300px; border: 5px solid #4caf50; margin-top: 50px; border-radius: 20px; overflow-y: hidden; padding: 10px; background-color: #000; color: #0f0; font-family: monospace; font-size: 20px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- generating img zone (anim and image) -->
+    <div id="generate_zone" style="display: none;">
+        <!-- script run anim -->
+        <div style="width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center;">
+            <div id="script_run2"
+                style="width: 80%; height: 80%; border: 10px solid #4caf50; border-radius: 25px; background-color: black; padding: 20px; overflow-y: hidden; color: #0f0; font-family: monospace; font-size: 30px;">
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- show zoomed img feature -->
+    <div id="zoomed_img"
+        style="z-index: 2; background-color: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); position: fixed; top: 0; width: 100%; height: 100vh; display: none; justify-content: center; align-items: center;">
+
+        <div onclick="back_to_img_list()"
+            style="position: absolute; font-size: 100px; color: white; right: 0; top: 0; width: 100px; height: 100px;">
+            <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+        </div>
+
+
+
+        <div id="img_holder" style="width: 100%;">
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- login to account -->
+    <script>
+        document.getElementById('checkPasswordButton').addEventListener('click', () => {
+            // Get the input element
+            const passwordInput = document.getElementById('password');
+            // Get the value of the input element
+            const passwordValue = passwordInput.value;
+            // Define the correct password
+            const correctPassword = 'asda98sd787hjs';
+
+            // Check if the input value matches the correct password
+            if (passwordValue != correctPassword) {
+                container.innerHTML = `<!-- golden bg -->
+                                <div style="width: 100%; height: 100vh; position: fixed; z-index: 1;">
+                                    <img style="width: 100%; height: 100%;" src="golden border_3263621.png" alt="">
+                                </div>
+
+
+                                <div style="position: relative; z-index: 2;">
+                                    <div style="display: flex; justify-content: center; align-items: center; padding-top: 100px;">
+                                        <div>
+                                            <center>
+                                                <img style="width: 50%;"
+                                                    src="[removal.ai]_35ec2f7e-c448-4290-a5d2-a5c024cf7788-logo-hanh-khung1.png" alt="">
+                                            </center>
+                                            <div id="uploadForm" 
+                                                style="color: gold; padding-top: 40px;">
+                                                <div>
+                                                    <label style="font-size: 50px;" for="fileUpload">Chọn hình ảnh để tải lên:</label>
+                                                </div>
+
+
+
+
+                                                <div style="padding-top: 10px;">
+                                                    <label style="font-size: 30px;" for="fileUpload">Customer_face:</label>
+                                                </div>
+                                                <input type="file" id="fakeScanPic" accept="image/*" multiple onchange="previewSanImages(event)"
+                                                    style="background-image: url('photo-1545873681-d8affd67677b.jpg'); background-size: cover; background-repeat: no-repeat;  color: rgb(0, 0, 0); padding: 10px 20px; border: none; border-radius: 5px; font-size: 30px;">
+                                                <div id="fakeScanPreview" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                                                </div>
+
+
+
+
+
+                                                <div style="padding-top: 10px;">
+                                                    <label style="font-size: 30px;" for="fileUpload">AI_generated_pics:</label>
+                                                </div>
+                                                <input type="file" id="fileUpload" name="images[]" accept="image/*" multiple
+                                                    onchange="previewImages(event)"
+                                                    style="background-image: url('photo-1545873681-d8affd67677b.jpg'); background-size: cover; background-repeat: no-repeat;  color: rgb(0, 0, 0); padding: 10px 20px; border: none; border-radius: 5px; font-size: 30px;">
+                                                <div id="imagePreview" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;"></div>
+
+
+
+
+                                                <button onclick="open_scaning_function()"
+                                                    style="background-image: url('photo-1545873681-d8affd67677b.jpg'); background-size: cover; background-repeat: no-repeat;  color: rgb(0, 0, 0); padding: 10px 20px; border: none; border-radius: 5px; font-size: 30px;">Upload</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>`;
+
+            } else {
+                alert('Password is incorrect!');
+            }
+        });
+
+    </script>
+
+
+
+
+
+
+
+
+
+    <!-- show original image after upload -->
+    <script>
+        function previewSanImages(event) {
+            const file = event.target.files[0]; // Lấy file đầu tiên đã chọn
+            const fakeScanPreview = document.getElementById('fakeScanPreview');
+
+            // Xóa tất cả các ảnh xem trước cũ
+            fakeScanPreview.innerHTML = '';
+
+            // Kiểm tra xem file có phải là hình ảnh không
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.id = "uploaded_original_image"
+                    img.src = e.target.result;
+                    img.style.width = '100px'; // Đặt kích thước ảnh xem trước
+                    img.style.height = '100px';
+                    img.style.objectFit = 'cover';
+                    img.style.border = '1px solid #ddd';
+                    img.style.borderRadius = '5px';
+                    fakeScanPreview.appendChild(img);
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                alert('Vui lòng chọn một file hình ảnh hợp lệ.');
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+    <!-- show generated image after upload -->
+    <script>
+        var imageCount = 0;
+
+
+        function previewImages(event) {
+            const files = event.target.files; // Lấy danh sách file đã chọn
+            const previewContainer = document.getElementById('imagePreview');
+
+            // Xóa tất cả các ảnh xem trước cũ
+            previewContainer.innerHTML = '';
+            let index = 0;
+
+            for (const file of files) {
+                if (!file.type.startsWith('image/')) continue; // Bỏ qua nếu không phải là file hình ảnh
+
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.id = "uploaded_generated_image_" + index;
+                    img.src = e.target.result;
+                    img.style.width = '100px'; // Đặt kích thước ảnh xem trước
+                    img.style.height = '100px';
+                    img.style.objectFit = 'cover';
+                    img.style.border = '1px solid #ddd';
+                    img.style.borderRadius = '5px';
+                    previewContainer.appendChild(img);
+
+                    index++;
+                    imageCount++;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+    <!-- move to face scanning -->
+    <script>
+        function open_scaning_function() {
+            var container = document.getElementById("container")
+            var container2 = document.getElementById("container2")
+
+            container.style.display = "none";
+            container2.style.display = "block";
+        }
+    </script>
+
+
+
+
+
+
+
+    <!-- start face scanning after press scan -->
+    <script>
+        function start_scan() {
+            var scan_bar = document.getElementById("scan_bar");
+            var progressContainer = document.getElementById("progressContainer");
+            var scan_button = document.getElementById("scan_button");
+
+            scan_bar.style.display = "block";
+            progressContainer.style.display = "block";
+            scan_button.style.display = "none";
+            scan_bar.classList.add("scan_bar");
+
+
+
+            // Gọi hàm để bắt đầu tiến trình
+            moveProgressBar();
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- progress bar running anim face scan -->
+    <script>
+        function moveProgressBar() {
+            let progressBar = document.getElementById('progressBar');
+            let width = 0;
+
+
+            var container2 = document.getElementById("container2");
+            var identify_avatar = document.getElementById("identify_avatar");
+
+
+
+            let interval = setInterval(function () {
+                if (width >= 100) {
+                    clearInterval(interval); // Dừng khi đạt 100%
+
+                    var fake_loading = document.getElementById("fake_loading");
+
+                    fake_loading.innerHTML = `<div id="loadingOverlay">
+                                            <div id="loadingSpinner"></div>
+                                        </div>`;
+
+                    setTimeout(function () {
+                        var loadingOverlay = document.getElementById('loadingOverlay');
+                        loadingOverlay.style.opacity = 0;
+                        loadingOverlay.style.display = 'none';
+
+                        container2.style.display = "none";
+                        identify_avatar.style.display = "block";
+
+
+                        // Start the script
+                        // runScript();
+                        scan_bar.style.display = "none";
+                        progressContainer.style.display = "none";
+                        scan_button.style.display = "block";
+                        scan_bar.classList.remove("scan_bar");
+                        width = 0;
+                        updateProgress();
+                    }, 3000); // 5 seconds loading effect
+
+
+
+
+
+
+
+
+
+
+                } else {
+                    width++;
+                    progressBar.style.width = width + '%';
+                    progressBar.innerText = width + '%'; // Hiển thị phần trăm
+                }
+            }, 100); // Tốc độ tăng: 50ms cho mỗi lần tăng
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- cript running anim for start face detection -->
+    <script>
+
+
+        const linees = [
+            "[INFO] Initializing AI model...",
+            "[INFO] Loading facial recognition libraries...",
+            "[INFO] Facial detection model loaded successfully.",
+            "[INFO] Calibrating AI beautification filters...",
+            "[INFO] Detecting facial landmarks (eyes, nose, lips)...",
+            "[INFO] Applying beautification filters: smoothing skin...",
+            "[INFO] Enhancing facial symmetry...",
+            "[INFO] Adjusting lighting and contrast for better image quality...",
+            "[INFO] Detecting eyebrow shape for adjustments...",
+            "[INFO] Enhancing lips with natural color tone...",
+            "[INFO] AI model completed image processing...",
+            "[INFO] Ready for user interaction."
+        ];
+
+        let indeex = 0;
+        let progreess = 0;
+
+
+        function updateProgress() {
+            var original_img_shown = document.getElementById("original_img_shown");
+            var uploaded_original_image = document.getElementById("uploaded_original_image");
+
+            original_img_shown.src = uploaded_original_image.src;
+
+
+            var progressBar2 = document.getElementById('progressBar2');
+            var scriptRun = document.getElementById('script_run');
+            fadeOutEffect();
+
+            var avatar_frame = document.getElementById("avatar_frame");
+
+            avatar_frame.style.height = avatar_frame.clientWidth + "px";
+
+
+            if (indeex < linees.length) {
+                // Display the current line
+                const linee = document.createElement('div');
+                linee.textContent = lines[indeex];
+                scriptRun.appendChild(linee);
+
+                // Auto-scroll to the bottom
+                scriptRun.scrollTop = scriptRun.scrollHeight;
+
+                // Update progress bar
+                progreess += 100 / linees.length;
+                progressBar2.style.width = progreess + '%';
+                progressBar2.textContent = Math.round(progreess) + '%';
+
+                // Move to the next line
+                indeex++;
+                setTimeout(updateProgress, 1000); // Delay for each line (1 second)
+            }
+
+            else {
+                setTimeout(function () {
+                    ai_interact_zone.innerHTML = `<div data-aos="fade-up" data-aos-duration="2000" style="padding-top: 10px; color: gold;">
+                                                    <label style="font-size: 50px;">Đây có phải là bạn?</label>
+                                                </div>`;
+
+                    setTimeout(function () {
+                        ai_interact_zone.innerHTML += `<div style="padding-top: 50px;" data-aos="fade-up" data-aos-duration="1000">
+                                                            <button onclick="start_generating()"
+                                                                style="background-image: url('photo-1545873681-d8affd67677b.jpg'); background-size: cover; background-repeat: no-repeat;  color: rgb(0, 0, 0); padding: 10px 20px; border: none; border-radius: 5px; font-size: 30px; width: 100%; font-weight: 600;">Yes
+                                                                😍</button>
+                                                        </div>`;
+
+
+
+
+
+                        setTimeout(function () {
+                            ai_interact_zone.innerHTML += `<div style="padding-top: 50px;" data-aos="fade-up" data-aos-duration="1000">
+                                                                <button onclick="back_to_scan()""
+                                                                    style="background-image: url('photo-1545873681-d8affd67677b.jpg'); background-size: cover; background-repeat: no-repeat;  color: rgb(0, 0, 0); padding: 10px 20px; border: none; border-radius: 5px; font-size: 30px; width: 100%; font-weight: 600;">No
+                                                                😭</button>
+                                                            </div>`;
+                        }, 1000);
+                    }, 1000);
+
+
+
+                }, 1500);
+            }
+        }
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+    <!-- script run progress bar and show interaction -->
+    <script>
+        var ai_interact_zone = document.getElementById("ai_interact_zone");
+
+        function moveProgressBar2() {
+            let progressBar = document.getElementById('progressBar');
+            var blurEffect = document.getElementById("blurEffect")
+            let width = 0;
+
+            let interval = setInterval(function () {
+                if (width >= 100) {
+                    blurEffect.style.display = "none"
+                    clearInterval(interval); // Dừng khi đạt 100%
+
+
+
+
+
+
+                    setTimeout(function () {
+                        ai_interact_zone.innerHTML = `<div data-aos="fade-up" data-aos-duration="2000" style="padding-top: 10px; color: gold;">
+                                                    <label style="font-size: 50px;">Đây có phải là bạn?</label>
+                                                </div>`;
+
+                        setTimeout(function () {
+                            ai_interact_zone.innerHTML += `<div style="padding-top: 50px;" data-aos="fade-up" data-aos-duration="1000">
+                                                            <button
+                                                                style="background-image: url('photo-1545873681-d8affd67677b.jpg'); background-size: cover; background-repeat: no-repeat;  color: rgb(0, 0, 0); padding: 10px 20px; border: none; border-radius: 5px; font-size: 30px; width: 100%; font-weight: 600;">Yes
+                                                                😍</button>
+                                                        </div>`;
+
+
+
+
+
+                            setTimeout(function () {
+                                ai_interact_zone.innerHTML += `<div style="padding-top: 50px;" data-aos="fade-up" data-aos-duration="1000">
+                                                                <button
+                                                                    style="background-image: url('photo-1545873681-d8affd67677b.jpg'); background-size: cover; background-repeat: no-repeat;  color: rgb(0, 0, 0); padding: 10px 20px; border: none; border-radius: 5px; font-size: 30px; width: 100%; font-weight: 600;">No
+                                                                😭</button>
+                                                            </div>`;
+                            }, 1000);
+                        }, 1000);
+
+
+
+                    }, 1500);
+
+
+
+
+
+
+                } else {
+                    width++;
+                    progressBar.style.width = width + '%';
+                    progressBar.innerText = width + '%'; // Hiển thị phần trăm
+                }
+            }, 100); // Tốc độ tăng: 50ms cho mỗi lần tăng
+        }
+
+        // moveProgressBar()
+    </script>
+
+
+
+
+
+
+
+
+    <!-- script make photo become clearer and clearer time by time -->
+    <script>
+        function fadeOutEffect() {
+            const blurEffect = document.getElementById('blurEffect');
+            blurEffect.classList.add('fadeOut'); // Thêm class fadeOut để bắt đầu hiệu ứng
+        }
+
+        // Gọi hàm để kích hoạt hiệu ứng
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- script back to face scan from ai detected image -->
+    <script>
+        function back_to_scan() {
+            identify_avatar.style.display = "none";
+            indeex = 0;
+            progreess = 0;
+            blurEffect.classList.remove('fadeOut');
+
+            ai_interact_zone.innerHTML = `<div id="progressContainer2"
+                                                style="background-color: #f3f3f3; border-radius: 10px; overflow: hidden; height: 30px; margin-top: 20px;">
+                                                <div id="progressBar2"
+                                                    style="width: 0%; height: 100%; background-color: #4caf50; text-align: center; line-height: 30px; color: white; font-weight: bold;">
+                                                    0%
+                                                </div>
+                                            </div>
+
+
+
+                                            <div style="padding-bottom: 50px;">
+                                                <div id="script_run"
+                                                    style="width: 100%; height: 300px; border: 5px solid #4caf50; margin-top: 50px; border-radius: 20px; overflow-y: hidden; padding: 10px; background-color: #000; color: #0f0; font-family: monospace; font-size: 20px;">
+
+                                                </div>
+                                            </div>`;
+
+
+            fake_loading.innerHTML = `<div id="loadingOverlay">
+                                            <div id="loadingSpinner"></div>
+                                        </div>`;
+
+            setTimeout(function () {
+                var container2 = document.getElementById('container2');
+                loadingOverlay.style.opacity = 0;
+                loadingOverlay.style.display = 'none';
+
+                generate_zone.style.display = "none";
+                container2.style.display = "block";
+
+
+                // Start the script
+                // runScript();
+            }, 3000); // 5 seconds loading effect
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- script switch from face detect to ai generate img -->
+    <script>
+        function start_generating() {
+            fake_loading.innerHTML = `<div id="loadingOverlay">
+                                            <div id="loadingSpinner"></div>
+                                        </div>`;
+
+            setTimeout(function () {
+                var generate_zone = document.getElementById('generate_zone');
+                loadingOverlay.style.opacity = 0;
+                loadingOverlay.style.display = 'none';
+
+                identify_avatar.style.display = "none";
+                generate_zone.style.display = "block";
+
+
+                // Start the script
+                runScript();
+            }, 3000); // 5 seconds loading effect
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- script run anim generating img and start show images -->
+    <script>
+        const lines = [
+            "[INFO] Initializing AI beauty system...",
+            "[INFO] Loading facial recognition libraries...",
+            "[INFO] Detecting facial landmarks: eyes, nose, lips...",
+            "[INFO] Applying face smoothing filters...",
+            "[INFO] Generating eyebrow options...",
+            "[INFO] Detecting optimal eyebrow shape...",
+            "[INFO] Matching eyebrow color with skin tone...",
+            "[INFO] Selecting eyebrow style: natural, arched, straight...",
+            "[INFO] Applying eyebrow enhancements...",
+            "[INFO] Adjusting eyebrow density and thickness...",
+            "[INFO] Optimizing eyebrow symmetry...",
+            "[INFO] Finalizing eyebrow shape and color...",
+        ];
+
+        const progressLines = [
+            "[PROGRESS] Generating 3D facial mesh... ",
+            "[PROGRESS] Analyzing eyebrow proportions... ",
+            "[PROGRESS] Optimizing color blending algorithms... ",
+        ];
+
+        let index = 0;
+        let scriptRun2 = document.getElementById('script_run2');
+
+
+
+
+        function runScript() {
+            if (index < lines.length) {
+                // Display current line
+                let line = document.createElement('div');
+                line.textContent = lines[index];
+                scriptRun2.appendChild(line);
+                scriptRun2.scrollTop = scriptRun2.scrollHeight; // Auto-scroll
+
+                // Randomly insert a progress bar line
+                if (Math.random() < 0.3 && index > 1) {  // Insert progress randomly
+                    displayProgress();
+                }
+
+                index++;
+                setTimeout(runScript, 1000); // Delay for each line (1 second)
+            } else {
+                displayLoading(imageCount);
+            }
+        }
+
+        function displayProgress() {
+            let progressIndex = Math.floor(Math.random() * progressLines.length);
+            let progressLine = document.createElement('div');
+            progressLine.textContent = progressLines[progressIndex];
+            scriptRun2.appendChild(progressLine);
+
+            let progressBar = document.createElement('div');
+            progressBar.style.backgroundColor = "#4caf50";
+            progressBar.style.height = "10px";
+            progressBar.style.width = "0%";
+            progressBar.style.marginTop = "5px";
+            scriptRun2.appendChild(progressBar);
+
+            let width = 0;
+            let progressInterval = setInterval(function () {
+                if (width >= 100) {
+                    clearInterval(progressInterval);
+
+
+
+                } else {
+                    width += 5;
+                    progressBar.style.width = width + '%';
+                }
+            }, 100); // 100ms increment
+        }
+
+        function displayLoading(imageCount) {
+            let loadingLine = document.createElement('div');
+            loadingLine.textContent = "loading.";
+            scriptRun2.appendChild(loadingLine);
+
+            let loadingDots = 0;
+            let loadingInterval = setInterval(function () {
+                loadingDots = (loadingDots + 1) % 4; // Cycle between 0, 1, 2, 3 dots
+                loadingLine.textContent = "loading" + ".".repeat(loadingDots);
+            }, 500); // Half-second interval
+
+            setTimeout(function () {
+                clearInterval(loadingInterval);
+                let successLine = document.createElement('div');
+                successLine.textContent = "[SUCCESS] AI generated eyebrows successfully!";
+                scriptRun2.appendChild(successLine);
+                scriptRun2.scrollTop = scriptRun2.scrollHeight; // Auto-scroll
+
+                var generate_zone = document.getElementById("generate_zone");
+                let innerDivsContent = '';
+
+                setTimeout(function () {
+                    for (let i = 0; i < imageCount; i++) {
+                        const imgSrc = document.getElementById('uploaded_generated_image_' + i).src;
+                        innerDivsContent += `
+                                            <div class="inner">
+                                                <div class="item image-container">
+                                                    <img  style="width: 100%; object-fit: cover;" onclick="open_img('${imgSrc}')" src="${imgSrc}" alt="">
+                                                </div>
+                                            </div>`;
+                    }
+
+                    // Đưa nội dung vào generate_zone
+                    generate_zone.innerHTML = `
+                                                <div class="container">
+                                                    <div class="grid">
+                                                        ${innerDivsContent}
+                                                    </div>
+                                                </div>`;
+
+
+                    // JavaScript to apply the animation sequentially
+                    const items = document.querySelectorAll('.item');
+
+                    items.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.animation = 'popOut 0.6s ease forwards';
+                        }, index * 1000); // Adjust the delay here (300ms for each item)
+                    });
+
+
+
+                    set_height_item_frame();
+                }, 3000); // 5 seconds loading effect
+
+
+
+
+            }, 5000); // 5 seconds loading effect
+        }
+
+
+
+    </script>
+
+
+
+
+
+
+
+    <!-- set generated img's height -->
+    <script>
+        function set_height_item_frame() {
+            const item = document.querySelectorAll(".item");
+
+            item.forEach((item) => {
+                item.style.height = item.clientWidth + "px";
+            });
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+    <!-- set uploaded img display height -->
+    <script>
+        var imagePreview = document.getElementById("imagePreview");
+        var fileUpload = document.getElementById("fileUpload");
+
+        imagePreview.style.width = fileUpload.clientWidth + "px";
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- show zoomed img script -->
+    <script>
+        var zoomed_img = document.getElementById("zoomed_img");
+        var img_holder = document.getElementById("img_holder");
+
+        function open_img(link) {
+            img_holder.innerHTML = `<img id="img_to_show" data-aos="fade-down" style="width: 100%; height: 100%; object-fit: contain;" src="sdfasdfdcv1.PNG" alt="">`;
+
+            var img_to_show = document.getElementById("img_to_show");
+            img_to_show.src = link
+            zoomed_img.style.display = "flex"
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+    <!-- back to generated img list -->
+    <script>
+        var zoomed_img = document.getElementById("zoomed_img");
+
+        function back_to_img_list() {
+            zoomed_img.style.display = "none"
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+    <!-- animation floating script -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+
+</html>
